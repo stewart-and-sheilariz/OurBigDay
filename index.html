@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Wedding Invite</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      overflow: hidden;
+    }
+
+    video.bg-video {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .overlay {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 5vw;
+      padding-right: 5vw;
+      height: 100%;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 1s ease;
+      pointer-events: none;
+    }
+
+    .overlay.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .card-container {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 40px;
+      margin-top: min(10vh, 80px);
+      border-radius: 20px;
+      width: 90vw;
+      max-width: 650px;
+      backdrop-filter: blur(6px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .save-img {
+      width: 100%;
+      height: auto;
+      max-width: 650px;
+      border-radius: 20px;
+      margin-bottom: 15px;
+    }
+
+.location {
+  font-family: 'SpotifyMixBold', sans-serif;
+  font-size: clamp(30px, 6.5vw, 52px); /* increased slightly */
+  letter-spacing: 0.5px;
+  text-align: left;
+  padding-inline: 2px;
+  width: 100%;
+}
+
+.place {
+  font-family: 'SpotifyMixRegular', sans-serif;
+  font-size: clamp(24px, 5.5vw, 36px); /* increased slightly */
+  color: #ccc;
+  margin-bottom: 15px;
+  margin-top: 3px;
+  text-align: left;
+  padding-inline: 2px;
+  width: 100%;
+}
+
+.names {
+  font-size: clamp(26px, 5.5vw, 38px); /* increased slightly */
+  font-family: 'SpotifyMixBold', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding-inline: 2px;
+  width: 100%;
+  text-align: left;
+  margin-top: 30px;
+}
+
+
+    .name-logo {
+      width: 45px;
+      height: auto;
+      vertical-align: middle;
+    }
+
+.rsvp-btn {
+  margin-top: 25px;
+  background: #FFD400;
+  border: none;
+  color: black;
+  padding: 16px 40px; /* Increased padding */
+  border-radius: 999px;
+  font-weight: bold;
+  font-size: clamp(20px, 4vw, 36px); /* Bigger font, responsive */
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  text-decoration: none;
+}
+
+    .start-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      text-align: center;
+      transition: opacity 1s ease;
+      cursor: pointer;
+      padding: 5vh 5vw;
+    }
+
+    .start-overlay.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+.start-overlay h1 {
+   font-size: clamp(30px, 5.5vw, 60px); ; /* min: 32px, ideal: 6% of width, max: 64px */
+  margin-bottom: 1em;
+  word-break: break-word;
+}
+
+.start-overlay p {
+  font-size: clamp(18px, 3.5vw, 28px); /* min: 18px, ideal: 3.5% of width, max: 28px */
+  color: #FFD400;
+}
+    @font-face {
+      font-family: 'SpotifyMixBold';
+      src: url('SpotifyMix-Bold.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'SpotifyMixRegular';
+      src: url('SpotifyMix-Regular.ttf') format('truetype');
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Background Video -->
+  <video class="bg-video" autoplay muted playsinline webkit-playsinline loop>
+    <source src="vid.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <!-- Background Music -->
+  <audio id="bg-music" preload="auto" loop>
+    <source src="backgrounds.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Start Overlay -->
+  <div class="start-overlay" onclick="beginExperience()">
+    <h1>💍 Stewart + Sheila Riz💐</h1>
+    <p>Tap to begin the experience</p>
+  </div>
+
+  <!-- Main Content -->
+  <div class="overlay" id="main-content">
+    <div class="card-container">
+      <img src="date.jpg" alt="Save the Date" class="save-img">
+      <div class="location">Dauis Church |<br>The Bellevue Resort</div>
+      <div class="place">Panglao, Bohol, PH</div>
+      <div class="names">
+        <img src="logo.png" alt="Logo" class="name-logo">
+        Stewart + Sheila Riz
+      </div>
+    </div>
+
+    <!-- RSVP Button -->
+    <a href="https://withjoy.com/stewart-and-sheila" target="_blank" class="rsvp-btn">Tap to RSVP</a>
+  </div>
+
+  <script>
+    function beginExperience() {
+      const music = document.getElementById('bg-music');
+      music.play().catch(err => {
+        console.log("Music play blocked or failed:", err);
+      });
+
+      document.querySelector('.start-overlay').classList.add('fade-out');
+      document.getElementById('main-content').classList.add('show');
+    }
+  </script>
+
+</body>
+</html>
