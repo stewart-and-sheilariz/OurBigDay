@@ -11,10 +11,11 @@
     }
 
     html, body {
-      height: 100%;
+       height: auto;
       font-family: 'Segoe UI', sans-serif;
       color: white;
-      overflow: hidden;
+        overflow-x: hidden;
+  overflow-y: auto;
     }
 
     video.bg-video {
@@ -26,19 +27,19 @@
       z-index: -1;
     }
 
-    .overlay {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding-left: 5vw;
-      padding-right: 5vw;
-      height: 100%;
-      text-align: center;
-      opacity: 0;
-      transition: opacity 1s ease;
-      pointer-events: none;
-    }
+.overlay {
+  height: auto; /* was 100% */
+  min-height: 100vh; /* ensures full viewport height minimum */
+  padding: 0.5vh  5vw; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 1s ease;
+  pointer-events: none;
+}
 
     .overlay.show {
       opacity: 1;
@@ -57,8 +58,11 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
+      overflow: visible;
     }
+
+
+
 
     .save-img {
       width: 100%;
@@ -177,12 +181,12 @@
 
   <!-- Background Music -->
   <audio id="bg-music" preload="auto" loop>
-    <source src="backgrounds.mp3" type="audio/mpeg">
+    <source src="background.mp3" type="audio/mpeg">
   </audio>
 
   <!-- Start Overlay -->
   <div class="start-overlay" onclick="beginExperience()">
-    <h1>💍 Stewart + Sheila Riz💐</h1>
+    <h1>💍 Stewart + Sheila Riz 💐</h1>
     <p>Tap to begin the experience</p>
   </div>
 
